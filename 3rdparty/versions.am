@@ -1,0 +1,6 @@
+# This automake utility file is included from 3rdparty/Makefile.am and
+# Makefile.am, so we can update the version numbers of third party
+# packages in exactly one place.
+
+BOOST_VERSION = 1.53.0
+GLOG_VERSION = 0.3.1

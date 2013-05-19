@@ -1,0 +1,18 @@
+Add support for injecting a JavaVM via Jvm::inject() so that future
+calls to Jvm::get() do not try and create another JavaVM.
+
+Add abstractions for calling from Java into C++ objects, for example,
+catching java::lang::Throwable and converting into Java exception and
+propagating.
+
+Include log4j.jar and zookeeper.jar in 3rdparty so that we can test
+the code in org/zookeeper/* and org/log4j/*.
+
+Enable creating a JNI::Env in thread-local storage so future JNI::Env
+declarations can look there first before doing JavaVM::GetEnv.
+
+Figure out how to namespace versions, e.g., Java Standard Edition (SE)
+6 versus Java SE 7.
+
+Do Jvm::get() once per method and add checks to ensure Jvm instance
+hasn't changed.
