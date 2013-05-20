@@ -58,6 +58,14 @@ public:
   class MethodSignature;
   class Method;
 
+  // Attempts to injects an embedded JVM. Returns the singleton Jvm
+  // instance or an error if the JVM has already been created or
+  // injected with a different JavaVM than what was passed.
+  Try<Jvm*> inject(
+      JavaVM* jvm,
+      JNI::Version version,
+      bool exceptions);
+
   // Starts a new embedded JVM with the given -D options. Each option
   // supplied should be of the standard form: '-Dproperty=value'.
   // Returns the singleton Jvm instance or an error if the JVM had
@@ -66,9 +74,6 @@ public:
   // http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4712793.  In
   // addition, most JVM's use signals and couldn't possibly play
   // nicely with one another.
-  // TODO(benh): Add a 'create' which just takes an already
-  // constructed JavaVM. This will be useful for when a JVM is calling
-  // into native code versus native code embedding a JVM.
   // TODO(John Sirois): Consider elevating classpath as a top-level
   // JVM configuration parameter since it will likely always need to
   // be specified. Ditto for and non '-X' options.

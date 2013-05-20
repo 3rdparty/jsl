@@ -65,6 +65,27 @@ void deleter()
 }
 
 
+Try<Jvm*> Jvm::inject(
+    JavaVM* jvm,
+    JNI::Version version,
+    bool exceptions)
+{
+  // TODO(benh): Make this thread-safe.
+  if (instance != NULL) {
+    if (instance->jvm != jvm) {
+      return Error("Java Virtual Machine already created/injected");
+    }
+    return instance;
+  }
+
+  instance = new Jvm(jvm, version, exceptions);
+
+  atexit(&deleter);
+
+  return instance;
+}
+
+
 Try<Jvm*> Jvm::create(
     const std::vector<std::string>& options,
     JNI::Version version,
@@ -72,7 +93,7 @@ Try<Jvm*> Jvm::create(
 {
   // TODO(benh): Make this thread-safe.
   if (instance != NULL) {
-    return Error("Java Virtual Machine already created");
+    return Error("Java Virtual Machine already created/injected");
   }
 
   JavaVMInitArgs vmArgs;
