@@ -254,10 +254,13 @@ public:
     const jfieldID id;
   };
 
-  // Helper for providing access to static variables in a class. You
-  // can use this to delay the variable lookup until it's actually
-  // accessed in order to keep the JVM from getting constructed too
-  // early. See Level in jvm/org/apache/log4j.hpp for an example.
+  // Helper for providing access to static variables in a class. This
+  // delays the actual read of the variable in the JVM until the cast
+  // operator is invoked to convert from StaticVariable<T> to T! Note
+  // that we take the variable name as a template parameter so that we
+  // can make cache the field (i.e., do 'static Field field = ...' in
+  // 'operator T'). See Level in jvm/org/apache/log4j.hpp for an
+  // example.
   // TODO(benh): Make this work for instance variables too (i.e.,
   // StaticVariable -> Variable).
   // TODO(benh): Provide template specialization for primitive
