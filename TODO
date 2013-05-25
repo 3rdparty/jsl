@@ -1,3 +1,13 @@
+Add support for a templated Jvm::invoke that enables converting a
+returned jobject to some C++ type (provided an exception wasn't
+thrown).
+
+Add a Jvm::instanceof.
+
+Add support for a templated Jvm::invoke that takes a list of
+exceptions that we can construct in the event of an exception (using
+Jvm::instanceof).
+
 Add support for injecting a JavaVM via Jvm::inject() so that future
 calls to Jvm::get() do not try and create another JavaVM.
 
