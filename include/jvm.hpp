@@ -60,11 +60,13 @@ public:
 
   // Attempts to injects an embedded JVM. Returns the singleton Jvm
   // instance or an error if the JVM has already been created or
-  // injected with a different JavaVM than what was passed.
+  // injected with a different JavaVM than what was passed. If
+  // 'exceptions' is false than any exceptions that occur will abort
+  // the current process.
   Try<Jvm*> inject(
       JavaVM* jvm,
       JNI::Version version,
-      bool exceptions);
+      bool exceptions = false);
 
   // Starts a new embedded JVM with the given -D options. Each option
   // supplied should be of the standard form: '-Dproperty=value'.
@@ -73,7 +75,8 @@ public:
   // instance per process since destructing a JVM has issues, see:
   // http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4712793.  In
   // addition, most JVM's use signals and couldn't possibly play
-  // nicely with one another.
+  // nicely with one another. If 'exceptions' is false than any
+  // exceptions that occur will abort the current process.
   // TODO(John Sirois): Consider elevating classpath as a top-level
   // JVM configuration parameter since it will likely always need to
   // be specified. Ditto for and non '-X' options.
