@@ -1,7 +1,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.61])
-AC_INIT([libbilingua], [0.0.1])
+AC_INIT([libjsl], [0.0.1])
 
 # Have autoconf setup some variables related to the system.
 AC_CANONICAL_HOST

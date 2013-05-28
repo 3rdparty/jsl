@@ -1,4 +1,4 @@
-# Makefile for bilingua.
+# Makefile for JSL.
 
 ACLOCAL_AMFLAGS = -I m4
 
@@ -25,13 +25,13 @@ pkginclude_HEADERS =				\
 # any part of our library installed (which happens even if you attempt
 # to do conditional installation via configure arguments, see
 # configure.ac).
-noinst_LTLIBRARIES = libbilingua.la
+noinst_LTLIBRARIES = libjsl.la
 
-libbilingua_la_SOURCES =	\
+libjsl_la_SOURCES =	\
   src/jvm.cpp			\
   src/org/apache/log4j.cpp
 
-libbilingua_la_CPPFLAGS =	\
+libjsl_la_CPPFLAGS =	\
   -I$(srcdir)/include		\
   -I$(srcdir)/$(STOUT)/include	\
   -I$(BOOST)			\
@@ -39,7 +39,7 @@ libbilingua_la_CPPFLAGS =	\
   $(JNI_CPPFLAGS)		\
   $(AM_CPPFLAGS)
 
-libbilingua_la_LIBADD =		\
+libjsl_la_LIBADD =		\
   $(JNI_LDFLAGS)		\
   $(GLOG)/libglog.la
 
@@ -50,10 +50,10 @@ tests_SOURCES =			\
   src/tests/main.cpp
 
 tests_CPPFLAGS =		\
-  $(libbilingua_la_CPPFLAGS)
+  $(libjsl_la_CPPFLAGS)
 
 tests_LDADD =			\
-  $(libbilingua_la_LIBADD)	\
-  libbilingua.la
+  $(libjsl_la_LIBADD)	\
+  libjsl.la
 
 TESTS = tests
